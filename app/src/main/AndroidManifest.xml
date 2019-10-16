@@ -20,7 +20,6 @@
         <activity android:name=".profile_details" />
         <activity android:name=".AboutusActivity" />
         <activity android:name=".ContactusActivity" />
-        <activity android:name=".StatisticsActivity" />
         <activity android:name=".ViewprofileActivity" />
         <activity android:name=".AddCustomerActivity" />
         <activity android:name=".splash_screen">

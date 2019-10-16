@@ -364,10 +364,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void call_logs(View view) {
-        Intent i = new Intent(MainActivity.this  , Call_logs.class);
-        startActivity(i);
+    //public void call_logs(View view) {
+       // Intent i = new Intent(MainActivity.this  , Call_logs.class);
+       // startActivity(i);
 
-        drawerLayout.closeDrawer(GravityCompat.START);
-    }
+       // drawerLayout.closeDrawer(GravityCompat.START);
+   // }
 }

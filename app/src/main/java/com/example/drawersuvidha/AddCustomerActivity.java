@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -32,13 +33,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class AddCustomerActivity extends AppCompatActivity {
-    TextView suvidha_tv , distributor_tv , ward_tv , contact_tv;
-    EditText  add_et,   name_et, adhaar_et, pan_et, email_et ,app_et;
-    EditText bankname_et , bankaccount_et , ifsccode_et , amount_et , payment_et ;
-    EditText refer_name1 , refer_contact1 , refer_email1;
-    EditText refer_name2 , refer_contact2 ,refer_email2 ;
-    RadioButton dd , cheque , yes , no ,yess, noo ;
+    TextView suvidha_tv, distributor_tv, ward_tv, contact_tv;
+    EditText add_et, name_et, adhaar_et, pan_et, email_et, app_et;
+    EditText bankname_et, bankaccount_et, ifsccode_et, amount_et, payment_et;
+    EditText refer_name1, refer_contact1, refer_email1;
+    EditText refer_name2, refer_contact2, refer_email2;
+    RadioButton dd, cheque, yes, no, yess, noo;
     LinearLayout bank_detail;
+    Context context = this;
+    UserDbHelper userDbHelper;
+    SQLiteDatabase sqLiteDatabase;
 
 
     public static ImageView profile_photo;
@@ -55,6 +59,7 @@ public class AddCustomerActivity extends AppCompatActivity {
     private int PICK_IMAGE_REQUEST1 = 2;
     private int PICK_IMAGE_REQUEST2 = 3;
     private int PICK_IMAGE_REQUEST3 = 4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +68,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         suvidha_tv = (TextView) findViewById(R.id.suvidha_center_name);
         distributor_tv = (TextView) findViewById(R.id.distributor_name);
         add_et = (EditText) findViewById(R.id.add_et);
-        app_et =(EditText)findViewById(R.id.app_et) ;
+        app_et = (EditText) findViewById(R.id.app_et);
         ward_tv = (TextView) findViewById(R.id.ward_no);
         contact_tv = (TextView) findViewById(R.id.contact_no);
         adhaar_et = (EditText) findViewById(R.id.adhaar_et);
@@ -73,38 +78,39 @@ public class AddCustomerActivity extends AppCompatActivity {
         adhaar_card = (ImageView) findViewById(R.id.adhaar);
         pan_card = (ImageView) findViewById(R.id.pan);
         ptp_image = (ImageView) findViewById(R.id.ptp_image);
-        bank_detail=findViewById(R.id.bank_detail);
+        bank_detail = findViewById(R.id.bank_detail);
 
-        bankname_et= (EditText)findViewById(R.id.bank_name);
-        bankaccount_et= (EditText)findViewById(R.id.bank_account);
-        ifsccode_et= (EditText)findViewById(R.id.ifsc_code);
-        amount_et= (EditText)findViewById(R.id.amount);
-        payment_et= (EditText)findViewById(R.id.payment);
+        bankname_et = (EditText) findViewById(R.id.bank_name);
+        bankaccount_et = (EditText) findViewById(R.id.bank_account);
+        ifsccode_et = (EditText) findViewById(R.id.ifsc_code);
+        amount_et = (EditText) findViewById(R.id.amount);
+        payment_et = (EditText) findViewById(R.id.payment);
 
-        refer_name1 =(EditText)findViewById(R.id.refer_name1);
-        refer_contact1 =(EditText)findViewById(R.id.refer_contact1);
-        refer_email1 =(EditText)findViewById(R.id.refer_email1);
-        refer_name2 =(EditText)findViewById(R.id.refer_name2);
-        refer_contact2 =(EditText)findViewById(R.id.refer_contact2);
-        refer_email2 =(EditText)findViewById(R.id.refer_email2);
+        refer_name1 = (EditText) findViewById(R.id.refer_name1);
+        refer_contact1 = (EditText) findViewById(R.id.refer_contact1);
+        refer_email1 = (EditText) findViewById(R.id.refer_email1);
+        refer_name2 = (EditText) findViewById(R.id.refer_name2);
+        refer_contact2 = (EditText) findViewById(R.id.refer_contact2);
+        refer_email2 = (EditText) findViewById(R.id.refer_email2);
 
-        cheque= (RadioButton)findViewById(R.id.cheque);
-        dd= (RadioButton)findViewById(R.id.dd);
-        yes= (RadioButton)findViewById(R.id.yes);
-        yess= (RadioButton)findViewById(R.id.yess);
-        no= (RadioButton)findViewById(R.id.no);
-        noo= (RadioButton)findViewById(R.id.noo);
+        cheque = (RadioButton) findViewById(R.id.cheque);
+        dd = (RadioButton) findViewById(R.id.dd);
+        yes = (RadioButton) findViewById(R.id.yes);
+        yess = (RadioButton) findViewById(R.id.yess);
+        no = (RadioButton) findViewById(R.id.no);
+        noo = (RadioButton) findViewById(R.id.noo);
 
 
         SharedPreferences sp = getSharedPreferences("user_info", MODE_PRIVATE);
 
-       suvidha_tv.setText(sp.getString("suvidha_name",""));
-        distributor_tv.setText(sp.getString("distributor_name",""));
-        ward_tv.setText(sp.getString("ward_no",""));
-        contact_tv.setText(sp.getString("contact_no",""));
+        suvidha_tv.setText(sp.getString("suvidha_name", ""));
+        distributor_tv.setText(sp.getString("distributor_name", ""));
+        ward_tv.setText(sp.getString("ward_no", ""));
+        contact_tv.setText(sp.getString("contact_no", ""));
 
 
     }
+
     public void add_image(View view) {
         Intent i = new Intent();
         i.setAction(Intent.ACTION_GET_CONTENT);
@@ -116,6 +122,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         // i.putExtra(MediaStore.EXTRA_OUTPUT, photoPath);
         startActivityForResult(i.createChooser(i, "Select Picture"), PICK_IMAGE_REQUEST);
     }
+
     public void add_adhaar_card(View view) {
         Intent i = new Intent();
         adhaar_card.setVisibility(View.VISIBLE);
@@ -123,6 +130,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         i.setType("image/*");
         startActivityForResult(i.createChooser(i, "Select Picture"), PICK_IMAGE_REQUEST1);
     }
+
     public void add_pan_card(View view) {
         Intent i = new Intent();
         i.setAction(Intent.ACTION_GET_CONTENT);
@@ -130,6 +138,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         pan_card.setVisibility(View.VISIBLE);
         startActivityForResult(i.createChooser(i, "Select Picture"), PICK_IMAGE_REQUEST2);
     }
+
     public void upload_ptp(View view) {
         Intent i = new Intent();
         i.setAction(Intent.ACTION_GET_CONTENT);
@@ -141,6 +150,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         // i.putExtra(MediaStore.EXTRA_OUTPUT, photoPath);
         startActivityForResult(i.createChooser(i, "Select Picture"), PICK_IMAGE_REQUEST3);
     }
+
     // function to convert bitmap to string
     public String getStringImage(Bitmap bmp) {
 
@@ -150,6 +160,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
+
     public String getStringImage1(Bitmap bmp) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -158,6 +169,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
+
     public String getStringImage2(Bitmap bmp) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -165,6 +177,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         byte[] imageBytes = baos.toByteArray();
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
+
     public String getStringImage3(Bitmap bmp) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -173,6 +186,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -227,6 +241,7 @@ public class AddCustomerActivity extends AppCompatActivity {
             }
         }
     }
+
     // function to scale down image
     public Bitmap decodeUri(Context c, Uri uri, final int requiredSize)
             throws FileNotFoundException {
@@ -249,29 +264,30 @@ public class AddCustomerActivity extends AppCompatActivity {
         o2.inSampleSize = scale;
         return BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o2);
     }
+
     public void submit(View view) {
 
-        String name = name_et.getText().toString();
+        String customers_name = name_et.getText().toString();
         String suvidha = suvidha_tv.getText().toString();
         String distributor = distributor_tv.getText().toString();
         String email = email_et.getText().toString();
-        String address = add_et.getText().toString();
+        String customers_address = add_et.getText().toString();
         String application = app_et.getText().toString();
         String ward = ward_tv.getText().toString();
         String contact = contact_tv.getText().toString();
-        String adhaar = adhaar_et.getText().toString();
+        String aadhar = adhaar_et.getText().toString();
         String pan = pan_et.getText().toString();
-        String bankname = bankname_et.getText().toString();
-        String bankaccount = bankaccount_et.getText().toString();
-        String ifsccode= ifsccode_et.getText().toString();
+        String bank_name = bankname_et.getText().toString();
+        String bank_account = bankaccount_et.getText().toString();
+        String ifsc = ifsccode_et.getText().toString();
         String amount = amount_et.getText().toString();
-        String payment = payment_et.getText().toString();
-        String refername_1 = refer_name1.getText().toString();
-        String refercontact_1 = refer_contact1.getText().toString();
-        String referemail_1 = refer_email1.getText().toString();
-        String refername_2 = refer_name2.getText().toString();
-        String refercontact_2 = refer_contact2.getText().toString();
-        String referemail_2 = refer_email2.getText().toString();
+        String payment_details = payment_et.getText().toString();
+        String ref1_name = refer_name1.getText().toString();
+        String ref1_contact = refer_contact1.getText().toString();
+        String ref1_email = refer_email1.getText().toString();
+        String ref2_name = refer_name2.getText().toString();
+        String ref2_contact = refer_contact2.getText().toString();
+        String ref2_email = refer_email2.getText().toString();
 
         Boolean dd_rb = dd.isChecked();
         Boolean cheque_rb = cheque.isChecked();
@@ -280,7 +296,6 @@ public class AddCustomerActivity extends AppCompatActivity {
 
         Boolean yess_rb = yess.isChecked();
         Boolean noo_rb = noo.isChecked();
-
 
 
 
@@ -296,7 +311,7 @@ public class AddCustomerActivity extends AppCompatActivity {
             Toast.makeText(AddCustomerActivity.this, "enter the ward no.", Toast.LENGTH_SHORT).show();
             return;
         }*/
-        if (name.equals("")) {
+        if (customers_name.equals("")) {
             Toast.makeText(AddCustomerActivity.this, "enter the name", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -308,15 +323,15 @@ public class AddCustomerActivity extends AppCompatActivity {
             Toast.makeText(AddCustomerActivity.this, "enter the application no. ", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (address.equals("")) {
+        if (customers_address.equals("")) {
             Toast.makeText(AddCustomerActivity.this, "enter the address", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (adhaar.length() < 8 || adhaar.length()>8) {
+        if (aadhar.length() < 12 || aadhar.length() > 12) {
             Toast.makeText(AddCustomerActivity.this, "please check your adhaar card no.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (pan.length() < 8 || pan.length()>8) {
+        if (pan.length() < 8 || pan.length() > 8) {
             Toast.makeText(AddCustomerActivity.this, "please check your pan card no.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -326,18 +341,18 @@ public class AddCustomerActivity extends AppCompatActivity {
         }
 
 
-        if (bankname.equals("")) {
+        if (bank_name.equals("")) {
             Toast.makeText(AddCustomerActivity.this, "enter the name", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (bankaccount.length() <15 || bankaccount.length()>15  ) {
+        if (bank_account.length() < 15 || bank_account.length() > 15) {
             Toast.makeText(AddCustomerActivity.this, " account no should  contain  15 digits", Toast.LENGTH_SHORT).show();
             return;
         }
 
 
-        if (ifsccode.length()< 11 || ifsccode.length() >11) {
+        if (ifsc.length() < 11 || ifsc.length() > 11) {
             Toast.makeText(AddCustomerActivity.this, " ifsc code should contain 11 digits", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -346,173 +361,70 @@ public class AddCustomerActivity extends AppCompatActivity {
             return;
         }
 
-        if (payment.equals("")) {
+        if (payment_details.equals("")) {
             Toast.makeText(AddCustomerActivity.this, "enter the payment details", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!dd_rb&&!cheque_rb){
+        if (!dd_rb && !cheque_rb) {
             Toast.makeText(AddCustomerActivity.this, "select the option", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!yes_rb&&!no_rb){
+        if (!yes_rb && !no_rb) {
             Toast.makeText(AddCustomerActivity.this, "select the option", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!yess_rb&&!noo_rb){
+        if (!yess_rb && !noo_rb) {
             Toast.makeText(AddCustomerActivity.this, "select the option ecs", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (refername_1.equals("")) {
+        if (ref1_name.equals("")) {
             Toast.makeText(AddCustomerActivity.this, "enter the name for first referencr", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (refercontact_1.length() < 10) {
+        if (ref1_contact.length() < 10) {
             Toast.makeText(AddCustomerActivity.this, "re-enter the contact for first reference ", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(referemail_1).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(ref1_email).matches()) {
             Toast.makeText(AddCustomerActivity.this, "enter valid email for first reference", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (refername_2.equals("")) {
+        if (ref2_name.equals("")) {
             Toast.makeText(AddCustomerActivity.this, "enter the name for second reference", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (refercontact_2.length() < 10) {
+        if (ref2_contact.length() < 10) {
             Toast.makeText(AddCustomerActivity.this, "re-enter the contact for second reference ", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(referemail_2).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(ref2_email).matches()) {
             Toast.makeText(AddCustomerActivity.this, "enter valid email for second reference", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(refername_1.equals("")&& referemail_1.equals("")&&refercontact_1.equals("")){
+        if (ref1_name.equals("") && ref1_email.equals("") && ref1_contact.equals("")) {
 
             Toast.makeText(AddCustomerActivity.this, "Please enter atleast one reference", Toast.LENGTH_SHORT).show();
             return;
 
         }
+        userDbHelper = new UserDbHelper(context);
+        sqLiteDatabase = userDbHelper.getWritableDatabase();
+        userDbHelper.addinformations(customers_name, email, customers_address, aadhar, pan,
+                bank_name, bank_account, ifsc, dd_rb, cheque_rb, amount,
+                payment_details, ref1_name, ref1_email, ref1_contact, ref2_name,
+                ref2_email, ref2_contact, sqLiteDatabase);
+        Toast.makeText(getBaseContext(), "Data Saved", Toast.LENGTH_LONG).show();
+        userDbHelper.close();
 
-
-        JSONObject job = new JSONObject();
-        try {
-            job.put("customers_name", name);
-            job.put("customers_contact", contact);
-            job.put("customers_email", email);
-            job.put("customers_suvidha_center_id", suvidha);
-            job.put("customers_distributor_id", distributor);
-            job.put("customers_ward_no", ward);
-            job.put("customers_address", address);
-            job.put("customers_aadhar", adhaar);
-            job.put("customers_pan_no", pan);
-            job.put("customers_application_no", application);
-
-
-            job.put("customer_id", getIntent().getStringExtra("customer_id"));
-            job.put("customers_profile_photo", profile_photo_string);
-            job.put("customers_adhar_upload", adhaar_card_string);
-            job.put("customers_pan_upload", pan_card_string);
-            job.put("customers_ptp_upload", ptp_image_string);
-
-            job.put("customers_bank_name", bankname);
-            job.put("customers_bank_account_no", bankaccount);
-            job.put("customers_ifsc_code", ifsccode);
-            job.put("customers_bank_charges", amount);
-            job.put("customers_payment_details", payment);
-            job.put("customers_refrence1_name", refername_1);
-            job.put("customers_refrence1_phone", refercontact_1);
-            job.put("customers_refrence1_email", referemail_1);
-            job.put("customers_refrence2_name", refername_2);
-            job.put("customers_refrence_phone", refercontact_2);
-            job.put("customers_refrence_email", referemail_2);
-            job.put("customers_status", "pending");
-
-
-            if(dd_rb){
-
-                job.put("customers_mode_of_payment","dd");
-            }
-
-            if(cheque_rb)
-            {
-                job.put("customers_mode_of_payment","cheque");
-            }
-
-            if(yes_rb)
-            {
-                job.put("customers_ptp_form_signed" , "yes");
-            }
-
-            if(no_rb)
-            {
-                job.put("customers_ptp_form_signed" , "no");
-            }
-
-            if(yess_rb)
-            {
-                job.put("customers_ecs_signed" , "yess");
-            }
-
-            if(noo_rb)
-            {
-                job.put("customers_ecs_signed" , "noo");
-            }
-
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest jobjreq = new JsonObjectRequest("http://suraksha.reitindia.org/dashboard/insert_customers_data", job, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                System.out.println(response);
-
-                try {
-
-                    if (response.getString("key").equals("0")) {
-                        Toast.makeText(AddCustomerActivity.this, " not done", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (response.getString("key").equals("1")) {
-                        Toast.makeText(AddCustomerActivity.this, "done", Toast.LENGTH_SHORT).show();
-
-                        Intent i = new Intent(AddCustomerActivity.this, MainActivity.class);
-                        startActivity(i);
-                        finish();
-
-                    } else {
-                        Toast.makeText(AddCustomerActivity.this, "error", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                {
-                }
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println(error);
-
-                    }
-                });
-        jobjreq.setRetryPolicy(new DefaultRetryPolicy(2000, 2, 2));
-        AppController app = new AppController(AddCustomerActivity.this);
-        app.addToRequestQueue(jobjreq);
 
     }
 
     public void bank_details(View view) {
-        bank_detail.setVisibility(View.VISIBLE);
-    }
-}
+        bank_detail.setVisibility(View.VISIBLE);}
 
+}
 
