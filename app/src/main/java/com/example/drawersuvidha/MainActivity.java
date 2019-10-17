@@ -364,6 +364,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void customer_list(View view) {
+        Intent i = new Intent(MainActivity.this  , CustomerList.class);
+        startActivity(i);
+    }
+
     //public void call_logs(View view) {
        // Intent i = new Intent(MainActivity.this  , Call_logs.class);
        // startActivity(i);

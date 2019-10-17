@@ -2,6 +2,7 @@ package com.example.drawersuvidha;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -76,6 +77,12 @@ public class UserDbHelper extends SQLiteOpenHelper {
         contentValues.put(UserContract.NewUserInfo.COLUMN_REF2CONTACT,ref2_contact);
          sqLiteDatabase.insert(UserContract.NewUserInfo.TABLE_NAME, null,contentValues);
         Log.e("DATABASE OPERATIONS", "one row inserted ....");
+    }
+    public Cursor getinformations(SQLiteDatabase sqLiteDatabase){
+        Cursor cursor;
+        String[] projections = {UserContract.NewUserInfo.COLUMN_NAME, UserContract.NewUserInfo.COLUMN_EMAIL, UserContract.NewUserInfo.COLUMN_ADDRESS, UserContract.NewUserInfo.COLUMN_AADHAR};
+        cursor=sqLiteDatabase.query(UserContract.NewUserInfo.TABLE_NAME,projections,null,null,null,null,null);
+        return cursor;
     }
 
     @Override

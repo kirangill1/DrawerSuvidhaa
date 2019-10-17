@@ -310,18 +310,18 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:clickable="true"
-            android:onClick="call_logs"
+            android:onClick="customer_list"
             >
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/call_log"
+                android:src="@drawable/customers"
                 android:padding="5dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Call Logs"
+                android:text="View Customers"
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/call_logs"
