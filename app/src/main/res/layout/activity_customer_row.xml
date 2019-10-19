@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="horizontal" android:layout_width="wrap_content"
     android:layout_height="40dp"
     android:gravity="center"
     android:background="@drawable/grad"
@@ -8,10 +8,11 @@
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
 
     <TextView
         android:layout_width="100dp"
@@ -29,15 +30,16 @@
         android:gravity="center"
         android:textColor="#000"
         />
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_customer_address"
-        android:text="Address"
-        android:gravity="center"
-        android:textColor="#000"
-        />
-    <TextView
+
+        <TextView
+            android:id="@+id/text_customer_address"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Address"
+            android:textColor="#000" />
+
+        <TextView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/text_customer_aadhar"
@@ -45,6 +47,149 @@
         android:gravity="center"
         android:textColor="#000"
         />
+        <!--<ImageView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_add_photo"
+            android:text="Add Photo"
+            android:gravity="center"
+            android:textColor="#000"
+            />-->
+      <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_application_number"
+            android:text="Application no"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+<!--        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_adhaar_card"
+            android:text="Image Adhaar Card"
+            android:gravity="center"
+            android:textColor="#000"
+            />-->
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_pan"
+            android:text="Pan Number"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+       <!-- <ImageView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_pan_card"
+            android:text="Image Pan Card"
+            android:gravity="center"
+            android:textColor="#000"
+            />-->
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_bank_name"
+            android:text="Bank Name"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_bank_account"
+            android:text="Bank Account"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_ifsc"
+            android:text="IFSC Code"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_amount"
+            android:text="Amount"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_payment_details"
+            android:text="Payment Detail"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_ref1_name"
+            android:text="Name"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_ref1_contact"
+            android:text="Contact"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_ref1_email"
+            android:text="Email"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_ref2_name"
+            android:text="Name"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_ref2_contact"
+            android:text="Contact"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_ref2_email"
+            android:text="Email"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+-->
+        <!--<ImageView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_ptp_form"
+            android:text="Image Ptp Form"
+            android:gravity="center"
+            android:textColor="#000"
+            />-->
+
     </LinearLayout>
     </HorizontalScrollView>
+
+
 </LinearLayout>

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".CustomerList">
@@ -46,6 +45,146 @@
                 android:gravity="center"
                 android:textColor="#000"
                 />
+            <!--<ImageView
+           android:layout_width="100dp"
+           android:layout_height="wrap_content"
+           android:id="@+id/image_add_photo"
+           android:text="Add Photo"
+           android:gravity="center"
+           android:textColor="#000"
+           />-->
+           <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_application_number"
+                android:text="Application no"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+            <!--        <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/image_adhaar_card"
+                        android:text="Image Adhaar Card"
+                        android:gravity="center"
+                        android:textColor="#000"
+
+                        />-->
+            <TextView android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_pan"
+            android:text="Pan Number"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+            <!-- <ImageView
+                 android:layout_width="100dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/image_pan_card"
+                 android:text="Image Pan Card"
+                 android:gravity="center"
+                 android:textColor="#000"
+                 />-->
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_bank_name"
+                android:text="Bank Name"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_bank_account"
+                android:text="Bank Account"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+             <TextView
+                   android:layout_width="100dp"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/text_ifsc"
+                   android:text="IFSC Code"
+                   android:gravity="center"
+                   android:textColor="#000"
+                   />
+
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_amount"
+                android:text="Amount"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_payment_detail"
+                android:text="Payment Detail"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_ref1_name"
+                android:text="Name"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_ref1_contact"
+                android:text="Contact"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_ref1_email"
+                android:text="Email"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_ref2_name"
+                android:text="Name"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_ref2_contact"
+                android:text="Contact"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_ref2_email"
+                android:text="Email"
+                android:gravity="center"
+                android:textColor="#000"
+                />
+
+            <!--<ImageView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/image_ptp_form"
+                android:text="Image Ptp Form"
+                android:gravity="center"
+                android:textColor="#000"
+                />-->
         </LinearLayout>
 
 

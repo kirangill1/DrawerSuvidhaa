@@ -20,14 +20,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -265,6 +257,11 @@ public class AddCustomerActivity extends AppCompatActivity {
         return BitmapFactory.decodeStream(c.getContentResolver().openInputStream(uri), null, o2);
     }
 
+
+
+    public void bank_details(View view) {
+        bank_detail.setVisibility(View.VISIBLE);}
+
     public void submit(View view) {
 
         String customers_name = name_et.getText().toString();
@@ -272,7 +269,7 @@ public class AddCustomerActivity extends AppCompatActivity {
         String distributor = distributor_tv.getText().toString();
         String email = email_et.getText().toString();
         String customers_address = add_et.getText().toString();
-        String application = app_et.getText().toString();
+        String application_number = app_et.getText().toString();
         String ward = ward_tv.getText().toString();
         String contact = contact_tv.getText().toString();
         String aadhar = adhaar_et.getText().toString();
@@ -319,7 +316,7 @@ public class AddCustomerActivity extends AppCompatActivity {
             Toast.makeText(AddCustomerActivity.this, "re-enter the contact no. ", Toast.LENGTH_SHORT).show();
             return;
         }*/
-        if (application.equals("")) {
+        if (application_number.equals("")) {
             Toast.makeText(AddCustomerActivity.this, "enter the application no. ", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -413,18 +410,16 @@ public class AddCustomerActivity extends AppCompatActivity {
         }
         userDbHelper = new UserDbHelper(context);
         sqLiteDatabase = userDbHelper.getWritableDatabase();
-        userDbHelper.addinformations(customers_name, email, customers_address, aadhar, pan,
-                bank_name, bank_account, ifsc, dd_rb, cheque_rb, amount,
+
+        userDbHelper.addinformations(customers_name, email, customers_address, aadhar, application_number, pan,
+                bank_name, bank_account, ifsc, amount,
                 payment_details, ref1_name, ref1_email, ref1_contact, ref2_name,
                 ref2_email, ref2_contact, sqLiteDatabase);
         Toast.makeText(getBaseContext(), "Data Saved", Toast.LENGTH_LONG).show();
         userDbHelper.close();
 
-
     }
 
-    public void bank_details(View view) {
-        bank_detail.setVisibility(View.VISIBLE);}
 
 }
 
